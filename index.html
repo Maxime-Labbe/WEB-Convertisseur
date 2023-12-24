@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style.css" media="all" rel="stylesheet">
+</head>
+
+<body>
+
+    <script src="script.js" async></script>
+
+
+
+    <p>louis</p>
+
+    <div class="aligneRow">
+        <div class="aligneCollun">
+            <select id="selecteur_1">
+                <option value="">--Please choose an option--</option>
+                <option value="1">Mètre</option>
+                <option value="1000">Kilomètre</option>
+                <option value="0.01">Centimètre</option>
+                <option value="330">Tour Effeil</option>
+                <option value="1.756">Homme</option>
+                <option value="0.1467">Smartphone</option>
+                <option value="56">Ariane 5</option>
+                <option value="1970">Golden Gate</option>
+            </select>
+
+            <input type="number" id="valeurInput_1" required minlength="4" maxlength="8" size="10" />
+        </div>
+
+        <div class="aligneCollun">
+            <select id="selecteur_2">
+                <option value="">--Please choose an option--</option>
+                <option value="1">Mètre</option>
+                <option value="1000">Kilomètre</option>
+                <option value="0.01">Centimètre</option>
+                <option value="330">Tour Effeil</option>
+                <option value="1.756">Homme</option>
+                <option value="0.1467">Smartphone</option>
+                <option value="56">Ariane 5</option>
+                <option value="1970">Golden Gate</option>
+            </select>
+
+            <input type="number" id="valeurInput_2" minlength="4" maxlength="8" size="10" />
+        </div>
+    </div>
+
+    <div class="exchangerStyle">
+        <button id="exchanger">Exchange values</button>
+    </div>
+
+
+    <!--faire un texte dans la cellule de texte-->
+    <p>titre new unite</p>
+    <input type="text" id="addTitle" minlength="4" maxlength="8" size="10">
+    <p>valeur en mètre</p>
+    <input type="number" id="addValeurMetre" minlength="4" maxlength="8" size="10">
+    <br><br>
+    <button id="buttonAddNewUnite">Clique sur moi</button>
+    <br><br><br><br>
+    <select id="removeSelecteur">
+        <option value="0">--Please choose an option--</option>
+        <option value="1">Mètre</option>
+        <option value="2">Kilomètre</option>
+        <option value="3">Centimètre</option>
+        <option value="4">Tour Effeil</option>
+        <option value="5">Homme</option>
+        <option value="6">Smartphone</option>
+        <option value="7">Ariane 5</option>
+        <option value="8">Golden Gate</option>
+    </select>
+    <button id="buttonRemoveUniteSelecteur">CLlique pour supprimer une valeur</button>
+
+    <div class="menu">
+        <div class="scroll">
+        </div>
+        <div class="item"></div>
+        <div class="item2"></div>
+    </div>
+</body>
+
+</html>
