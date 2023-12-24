@@ -76,4 +76,5 @@ html {
 
 .menu:hover {
     cursor: pointer;
+    opacity: 1;
 }
