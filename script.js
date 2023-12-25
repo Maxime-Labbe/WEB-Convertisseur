@@ -14,6 +14,8 @@ const buttonRemoveUniteSelecteur = document.getElementById("buttonRemoveUniteSel
 
 const $scrollMenu = document.querySelector('.scroll');
 const $menu = document.querySelector('.menu');
+const $item = document.querySelector('.item');
+const $item1 = document.querySelector('.item1');
 
 valeurInput_1.addEventListener("input", (event) => {
     valeurInput_2.value = (valeurInput_1.value * reponseSelecteur_1.value) / reponseSelecteur_2.value
