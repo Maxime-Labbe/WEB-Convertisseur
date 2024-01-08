@@ -1,5 +1,3 @@
-const exchanger = document.getElementById("exchanger")
-
 let reponseSelecteur_1 = document.getElementById("selecteur_1")
 let reponseSelecteur_2 = document.getElementById("selecteur_2")
 let valeurInput_1 = document.getElementById("valeurInput_1")
@@ -16,31 +14,32 @@ const $scrollMenu = document.querySelector('.scroll');
 const $menu = document.querySelector('.menu');
 const $item = document.querySelector('.item');
 const $item1 = document.querySelector('.item1');
+const $convertisseur = document.querySelector('#Convertisseur');
+const $modification = document.querySelector('#Modification');
+const $convertisseurPage = document.querySelector('.convertisseur');
+const $modificationPage = document.querySelector('.modification ');
+const $header = document.querySelector('.header');
+const $homeIcon = document.querySelector('.homeIcon');
+const $result = document.querySelector('.result');
 
 valeurInput_1.addEventListener("input", (event) => {
-    valeurInput_2.value = (valeurInput_1.value * reponseSelecteur_1.value) / reponseSelecteur_2.value
-
+    valeurInput_2.value = (valeurInput_1.value * reponseSelecteur_1.value) / reponseSelecteur_2.value;
+    $result.textContent = `${valeurInput_1.value == 0 ? "0" : valeurInput_1.value} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_2.value * 100) / 100} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}.`;
 })
 
+valeurInput_2.addEventListener("input", (event) => {
+    valeurInput_1.value = (valeurInput_2.value * reponseSelecteur_2.value) / reponseSelecteur_1.value;
+    $result.textContent = `${valeurInput_2.value == 0 ? "0" : valeurInput_2.value} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_1.value * 100) / 100} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""}.`;
+})
 
-exchanger.addEventListener("click", (event) => {
-    let temp = reponseSelecteur_1.value
-    reponseSelecteur_1.value = reponseSelecteur_2.value
-    reponseSelecteur_2.value = temp
-    temp = valeurInput_1.value
-    valeurInput_1.value = valeurInput_2.value;
-    valeurInput_2.value = temp;
+reponseSelecteur_1.addEventListener("change", (event) => {
+    valeurInput_1.value = (valeurInput_2.value * reponseSelecteur_2.value) / reponseSelecteur_1.value;
+    $result.textContent = `${valeurInput_2.value == 0 ? "0" : valeurInput_2.value} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_1.value * 100) / 100} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""}.`;
 });
 
-exchanger.addEventListener("mouseover", (event) => {
-    let marginTop = window.getComputedStyle(exchanger).getPropertyValue("margin-top")
-    if (marginTop == "27px") {
-        exchanger.style.marginTop = "500px";
-        exchanger.style.transition = "all 0.5s ease-in-out";
-    } else if (marginTop == "500px") {
-        exchanger.style.marginTop = "27px";
-        exchanger.style.transition = "all 0.5s ease-in-out";
-    }
+reponseSelecteur_2.addEventListener("change", (event) => {
+    valeurInput_2.value = (valeurInput_1.value * reponseSelecteur_1.value) / reponseSelecteur_2.value;
+    $result.textContent = `${valeurInput_1.value == 0 ? "0" : valeurInput_1.value} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_2.value * 100) / 100} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}.`;
 });
 
 //add une new valeur dans le selecteur:
@@ -75,11 +74,12 @@ buttonRemoveUniteSelecteur.addEventListener("click", (event) => {
     localStorage.setItem('score', "louis!!!");
 })
 
-$scrollMenu.addEventListener('click', (event) => {
-    if ($menu.style.width == '9%') {
-        $menu.style.width = '2%';
-    }
-    else {
-        $menu.style.width = '9%';
-    }
+$convertisseur.addEventListener('click', (event) => {
+    $modificationPage.classList.add('hidden');
+    $convertisseurPage.classList.remove('hidden');
+});
+
+$modification.addEventListener('click', (event) => {
+    $convertisseurPage.classList.add('hidden');
+    $modificationPage.classList.remove('hidden');
 });

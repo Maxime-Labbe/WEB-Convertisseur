@@ -18,82 +18,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="style.css" media="all" rel="stylesheet">
+    <link href="var.css" media="all" rel="stylesheet">
 </head>
 
 <body>
 
     <script src="script.js" async></script>
 
-
-
-    <p>louis</p>
-
-    <div class="aligneRow">
-        <div class="aligneCollun">
-            <select id="selecteur_1">
-                <option value="">--Please choose an option--</option>
-                <option value="1">Mètre</option>
-                <option value="1000">Kilomètre</option>
-                <option value="0.01">Centimètre</option>
-                <option value="330">Tour Effeil</option>
-                <option value="1.756">Homme</option>
-                <option value="0.1467">Smartphone</option>
-                <option value="56">Ariane 5</option>
-                <option value="1970">Golden Gate</option>
-            </select>
-
-            <input type="number" id="valeurInput_1" required minlength="4" maxlength="8" size="10" />
-        </div>
-
-        <div class="aligneCollun">
-            <select id="selecteur_2">
-                <option value="">--Please choose an option--</option>
-                <option value="1">Mètre</option>
-                <option value="1000">Kilomètre</option>
-                <option value="0.01">Centimètre</option>
-                <option value="330">Tour Effeil</option>
-                <option value="1.756">Homme</option>
-                <option value="0.1467">Smartphone</option>
-                <option value="56">Ariane 5</option>
-                <option value="1970">Golden Gate</option>
-            </select>
-
-            <input type="number" id="valeurInput_2" minlength="4" maxlength="8" size="10" />
-        </div>
+    <div class="header">
+        <img src="homeicon.jpg" class="homeIcon">
+        <h2 class="headerItem" id="Convertisseur">Converter</h2>
+        <h2 class="headerItem" id="Modification">Modification</h2>
     </div>
 
-    <div class="exchangerStyle">
-        <button id="exchanger">Exchange values</button>
+    <div class="convertisseur">
+        <h1 class="title">Converter of units</h1>
+        <div class="aligneRow">
+            <div class="aligneCollun">
+                <select class="selector" id="selecteur_1">
+                    <option value="" disabled selected>Please select a unit</option>
+                    <option value="1">Meter</option>
+                    <option value="1000">Kilometer</option>
+                    <option value="0.01">Centimeter</option>
+                    <option value="330">Effeil Tower</option>
+                    <option value="1.756">Man</option>
+                    <option value="0.1467">Smartphone</option>
+                    <option value="56">Ariane 5</option>
+                    <option value="1970">Golden Gate</option>
+                </select>
+
+                <input class="value" type="number" id="valeurInput_1" required minlength="4" maxlength="8" size="10" />
+            </div>
+
+            <div class="aligneCollun">
+                <select class="selector" id="selecteur_2">
+                    <option value="" disabled selected>Please select a unit</option>
+                    <option value="1">Meter</option>
+                    <option value="1000">Kilometer</option>
+                    <option value="0.01">Centimeter</option>
+                    <option value="330">Effeil Tower</option>
+                    <option value="1.756">Man</option>
+                    <option value="0.1467">Smartphone</option>
+                    <option value="56">Ariane 5</option>
+                    <option value="1970">Golden Gate</option>
+                </select>
+
+                <input class="value" type="number" id="valeurInput_2" minlength="4" maxlength="8" size="10" />
+            </div>
+        </div>
+        <p class="result">
+        </p>
     </div>
 
 
     <!--faire un texte dans la cellule de texte-->
-    <p>titre new unite</p>
-    <input type="text" id="addTitle" minlength="4" maxlength="8" size="10">
-    <p>valeur en mètre</p>
-    <input type="number" id="addValeurMetre" minlength="4" maxlength="8" size="10">
-    <br><br>
-    <button id="buttonAddNewUnite">Clique sur moi</button>
-    <br><br><br><br>
-    <select id="removeSelecteur">
-        <option value="0">--Please choose an option--</option>
-        <option value="1">Mètre</option>
-        <option value="2">Kilomètre</option>
-        <option value="3">Centimètre</option>
-        <option value="4">Tour Effeil</option>
-        <option value="5">Homme</option>
-        <option value="6">Smartphone</option>
-        <option value="7">Ariane 5</option>
-        <option value="8">Golden Gate</option>
-    </select>
-    <button id="buttonRemoveUniteSelecteur">CLlique pour supprimer une valeur</button>
-
-    <div class="menu">
-        <div class="scroll">
+    <div class="modification hidden">
+        <div class="addUnit">
+            <p>Title of new unit</p>
+            <input type="text" id="addTitle" minlength="4" maxlength="8" size="10">
+            <p>Value in meters</p>
+            <input type="number" id="addValeurMetre" minlength="4" maxlength="8" size="10">
+            <br><br>
+            <button id="buttonAddNewUnite">Click on me</button>
         </div>
-        <div class="item"></div>
-        <div class="item2"></div>
-        <p>coucouaa</p>
+        <div class="removeUnit">
+            <select id="removeSelecteur">
+                <option value="" disabled selected>Please select a unit</option>
+                <option value="1">Meter</option>
+                <option value="2">Kilometer</option>
+                <option value="3">Centimeter</option>
+                <option value="4">Effeil Tower</option>
+                <option value="5">Man</option>
+                <option value="6">Smartphone</option>
+                <option value="7">Ariane 5</option>
+                <option value="8">Golden Gate</option>
+            </select>
+            <button id="buttonRemoveUniteSelecteur">Click to delete a value</button>
+        </div>
     </div>
 </body>
 
