@@ -3,24 +3,85 @@ let reponseSelecteur_2 = document.getElementById("selecteur_2")
 let valeurInput_1 = document.getElementById("valeurInput_1")
 let valeurInput_2 = document.getElementById("valeurInput_2")
 
-const buttonAddNewUnite = document.getElementById("buttonAddNewUnite")
+const $buttonAddNewUnit = document.getElementById("buttonAddNewUnit");
 let addTitle = document.getElementById("addTitle")
 let addValeurMetre = document.getElementById("addValeurMetre")
 
 const removeSelecteur = document.getElementById("removeSelecteur")
-const buttonRemoveUniteSelecteur = document.getElementById("buttonRemoveUniteSelecteur")
+const $buttonRemoveUnit = document.getElementById("buttonRemoveUnit")
 
-const $scrollMenu = document.querySelector('.scroll');
-const $menu = document.querySelector('.menu');
-const $item = document.querySelector('.item');
-const $item1 = document.querySelector('.item1');
+const $body = document.querySelector('body');
+const $colorMode = document.querySelector('.colorMode');
+const $homeIcon = document.querySelector('.homeIcon');
 const $convertisseur = document.querySelector('#Convertisseur');
 const $modification = document.querySelector('#Modification');
 const $convertisseurPage = document.querySelector('.convertisseur');
-const $modificationPage = document.querySelector('.modification ');
-const $header = document.querySelector('.header');
-const $homeIcon = document.querySelector('.homeIcon');
+const $modificationPage = document.querySelector('.modification');
+const $menu = document.querySelector('.menu');
 const $result = document.querySelector('.result');
+const $selectors = document.querySelectorAll('.selector');
+const $inputs = document.querySelectorAll('.value');
+const $options = document.querySelectorAll('option');
+
+$colorMode.addEventListener('click', (event) => {
+    const colorMode = getComputedStyle($colorMode).getPropertyValue('background-image');
+    if (colorMode == "url(\"nightmode.png\")" || colorMode == "url(\"http://127.0.0.1:5500/nightmode.png\")") {
+        $colorMode.style.backgroundImage = "url('daymode.png')";
+        $body.classList.add('day');
+        $body.classList.remove('night');
+        $homeIcon.style.backgroundImage = "url('homeiconday.jpg')";
+        $convertisseurPage.classList.add('dayText');
+        $convertisseurPage.classList.remove('nightText');
+        $menu.classList.add('dayText');
+        $menu.classList.remove('nightText');
+        $modificationPage.classList.add('dayText');
+        $modificationPage.classList.remove('nightText');
+        $buttonAddNewUnit.classList.add('day');
+        $buttonAddNewUnit.classList.remove('night');
+        $buttonRemoveUnit.classList.add('day');
+        $buttonRemoveUnit.classList.remove('night');
+        $selectors.forEach(selector => {
+            selector.classList.add('day');
+            selector.classList.remove('night');
+        });
+        $inputs.forEach(input => {
+            input.classList.add('day');
+            input.classList.remove('night');
+        });
+        $options.forEach(option => {
+            option.classList.add('day');
+            option.classList.remove('night');
+        });
+    } else {
+        $colorMode.style.backgroundImage = "url('nightmode.png')";
+        $body.classList.add('night');
+        $body.classList.remove('day');
+        $homeIcon.style.backgroundImage = "url('homeiconnight.png')";
+        $convertisseurPage.classList.add('nightText');
+        $convertisseurPage.classList.remove('dayText');
+        $menu.classList.add('nightText');
+        $menu.classList.remove('dayText');
+        $modificationPage.classList.add('nightText');
+        $modificationPage.classList.remove('dayText');
+        $buttonAddNewUnit.classList.add('night');
+        $buttonAddNewUnit.classList.remove('day');
+        $buttonRemoveUnit.classList.add('night');
+        $buttonRemoveUnit.classList.remove('day');
+        $selectors.forEach(selector => {
+            selector.classList.add('night');
+            selector.classList.remove('day');
+            console.log(getComputedStyle(selector).getPropertyValue('background-color'));
+        });
+        $inputs.forEach(input => {
+            input.classList.add('night');
+            input.classList.remove('day');
+        });
+        $options.forEach(option => {
+            option.classList.add('night');
+            option.classList.remove('day');
+        });
+    }
+});
 
 valeurInput_1.addEventListener("input", (event) => {
     valeurInput_2.value = (valeurInput_1.value * reponseSelecteur_1.value) / reponseSelecteur_2.value;
@@ -43,26 +104,24 @@ reponseSelecteur_2.addEventListener("change", (event) => {
 });
 
 //add une new valeur dans le selecteur:
-buttonAddNewUnite.addEventListener("click", (event) => {
+$buttonAddNewUnit.addEventListener("click", (event) => {
 
-    var newOptionSelecteur1 = new Option(addTitle.value, addValeurMetre.value)
-    var newOptionSelecteur2 = new Option(addTitle.value, addValeurMetre.value)
-    var newOptionSelecteur3 = new Option(addTitle.value, addValeurMetre.value)
+    if (addTitle.value !== "" && addValeurMetre.value !== "") {
 
-
-    reponseSelecteur_1.add(newOptionSelecteur1, null)
-    reponseSelecteur_2.add(newOptionSelecteur2, null)
-    removeSelecteur.add(newOptionSelecteur3, null)
+        var newOptionSelecteur1 = new Option(addTitle.value, addValeurMetre.value)
+        var newOptionSelecteur2 = new Option(addTitle.value, addValeurMetre.value)
+        var newOptionSelecteur3 = new Option(addTitle.value, addValeurMetre.value)
 
 
-    //test:
-    var score = localStorage.getItem('score');
-    console.log("okokk c'est mtn !!!" + score)
+        reponseSelecteur_1.add(newOptionSelecteur1, null)
+        reponseSelecteur_2.add(newOptionSelecteur2, null)
+        removeSelecteur.add(newOptionSelecteur3, null)
+    }
 })
 
 
 // fonction pour supprimer une valeur dans le selecteur:
-buttonRemoveUniteSelecteur.addEventListener("click", (event) => {
+$buttonRemoveUnit.addEventListener("click", (event) => {
     let indexSupprime = removeSelecteur.selectedIndex
 
     removeSelecteur.remove(indexSupprime)
@@ -75,11 +134,15 @@ buttonRemoveUniteSelecteur.addEventListener("click", (event) => {
 })
 
 $convertisseur.addEventListener('click', (event) => {
-    $modificationPage.classList.add('hidden');
+    $modificationPage.style.display = "none";
     $convertisseurPage.classList.remove('hidden');
 });
 
 $modification.addEventListener('click', (event) => {
     $convertisseurPage.classList.add('hidden');
-    $modificationPage.classList.remove('hidden');
+    $modificationPage.style.display = "flex";
 });
+
+setInterval(() => {
+
+}, 1000);

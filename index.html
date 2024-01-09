@@ -21,20 +21,22 @@
     <link href="var.css" media="all" rel="stylesheet">
 </head>
 
+<script src="script.js" async></script>
+
 <body>
 
-    <script src="script.js" async></script>
-
     <div class="header">
-        <img src="homeicon.jpg" class="homeIcon">
-        <h2 class="headerItem" id="Convertisseur">Converter</h2>
-        <h2 class="headerItem" id="Modification">Modification</h2>
+        <div class="colorMode white"></div>
+        <div class="menu dayText">
+            <div class="homeIcon"></div>
+            <h2 class="headerItem" id="Convertisseur">Converter</h2>
+            <h2 class="headerItem" id="Modification">Modification</h2>
+        </div>
     </div>
-
-    <div class="convertisseur">
+    <div class="convertisseur dayText">
         <h1 class="title">Converter of units</h1>
-        <div class="aligneRow">
-            <div class="aligneCollun">
+        <div class="alignRow">
+            <div class="alignColumn">
                 <select class="selector" id="selecteur_1">
                     <option value="" disabled selected>Please select a unit</option>
                     <option value="1">Meter</option>
@@ -47,10 +49,10 @@
                     <option value="1970">Golden Gate</option>
                 </select>
 
-                <input class="value" type="number" id="valeurInput_1" required minlength="4" maxlength="8" size="10" />
+                <input class="value" type="number" id="valeurInput_1" required />
             </div>
 
-            <div class="aligneCollun">
+            <div class="alignColumn">
                 <select class="selector" id="selecteur_2">
                     <option value="" disabled selected>Please select a unit</option>
                     <option value="1">Meter</option>
@@ -63,7 +65,7 @@
                     <option value="1970">Golden Gate</option>
                 </select>
 
-                <input class="value" type="number" id="valeurInput_2" minlength="4" maxlength="8" size="10" />
+                <input class="value" type="number" id="valeurInput_2" />
             </div>
         </div>
         <p class="result">
@@ -72,28 +74,30 @@
 
 
     <!--faire un texte dans la cellule de texte-->
-    <div class="modification hidden">
-        <div class="addUnit">
-            <p>Title of new unit</p>
-            <input type="text" id="addTitle" minlength="4" maxlength="8" size="10">
-            <p>Value in meters</p>
-            <input type="number" id="addValeurMetre" minlength="4" maxlength="8" size="10">
-            <br><br>
-            <button id="buttonAddNewUnite">Click on me</button>
-        </div>
-        <div class="removeUnit">
-            <select id="removeSelecteur">
-                <option value="" disabled selected>Please select a unit</option>
-                <option value="1">Meter</option>
-                <option value="2">Kilometer</option>
-                <option value="3">Centimeter</option>
-                <option value="4">Effeil Tower</option>
-                <option value="5">Man</option>
-                <option value="6">Smartphone</option>
-                <option value="7">Ariane 5</option>
-                <option value="8">Golden Gate</option>
-            </select>
-            <button id="buttonRemoveUniteSelecteur">Click to delete a value</button>
+    <div class="modification dayText">
+        <div class="divInter">
+            <div class="addUnit">
+                <p>Title of new unit</p>
+                <input type="text" class="value" id="addTitle" maxlength="30" required>
+                <p>Value in meters</p>
+                <input type="number" class="value" id="addValeurMetre" required>
+                <br><br>
+                <button id="buttonAddNewUnit" class="day">Add new unit</button>
+            </div>
+            <div class="removeUnit alignColumn">
+                <select id="removeSelecteur" class="selector">
+                    <option value="" disabled selected>Please select a unit</option>
+                    <option value="1">Meter</option>
+                    <option value="2">Kilometer</option>
+                    <option value="3">Centimeter</option>
+                    <option value="4">Effeil Tower</option>
+                    <option value="5">Man</option>
+                    <option value="6">Smartphone</option>
+                    <option value="7">Ariane 5</option>
+                    <option value="8">Golden Gate</option>
+                </select>
+                <button id="buttonRemoveUnit">Delete unit</button>
+            </div>
         </div>
     </div>
 </body>

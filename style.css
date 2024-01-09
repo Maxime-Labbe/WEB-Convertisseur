@@ -2,11 +2,48 @@ html {
     width: 100%;
 }
 
+body {
+    transition: all 0.4s ease-in-out;
+}
+
 .hidden {
     display: none;
 }
 
-.header {
+.day {
+    background-color: var(--background-day);
+    color: var(--secondary-text-color);
+}
+
+.night {
+    background-color: var(--background-night);
+    color: var(--text-color);
+}
+
+.dayText {
+    color: var(--text-color);
+}
+
+.nightText {
+    color: var(--secondary-text-color);
+}
+
+.colorMode {
+    background-image: url('daymode.png');
+    background-position: -4px;
+    background-size: cover;
+    width: 165px;
+    height: 70px;
+    position: relative;
+    left: 10px;
+    transition: all 0.4s ease-in-out;
+}
+
+.colorMode:hover {
+    cursor: pointer;
+}
+
+.menu {
     width: 75px;
     height: 75px;
     margin-left: auto;
@@ -17,24 +54,24 @@ html {
     border-radius: 50px;
     background-color: var(--main-color);
     position: relative;
-    overflow: hidden;
+    margin-top: -70px;
     transition: all 0.4s ease-in-out;
 }
 
-.header:hover {
+.menu:hover {
     cursor: pointer;
     width: 500px;
 }
 
-.header:hover .headerItem {
+.menu:hover .headerItem {
     display: block;
 }
 
-.header:hover #Convertisseur {
+.menu:hover #Convertisseur {
     left: 14%;
 }
 
-.header:hover #Modification {
+.menu:hover #Modification {
     right: 10%;
 }
 
@@ -43,13 +80,15 @@ html {
     height: 55px;
     margin-left: auto;
     margin-right: auto;
+    background-image: url('homeiconday.jpg');
+    background-size: cover;
+    transition: all 0.4s ease-in-out;
 }
 
 .headerItem {
     display: none;
     font-size: 1.5rem;
     position: absolute;
-    color: var(--text-color);
     transition: all 0.4s ease-in-out;
 }
 
@@ -72,10 +111,10 @@ html {
 .title {
     font-size: 3rem;
     padding-top: 30px;
-    color: var(--text-color);
+    transition: all 0.4s ease-in-out;
 }
 
-.aligneCollun {
+.alignColumn {
     display: flex;
     flex-direction: column;
     padding-left: 1em;
@@ -83,7 +122,7 @@ html {
 
 }
 
-.aligneRow {
+.alignRow {
     width: 70%;
     margin-right: auto;
     margin-left: auto;
@@ -99,12 +138,11 @@ html {
     border: none;
     margin-top: 40px;
     margin-bottom: 20px;
-    color: var(--secondary-text-color);
+    transition: all 0.4s ease-in-out;
 }
 
 option {
     text-align: center;
-    color: var(--secondary-text-color);
 }
 
 .value {
@@ -112,13 +150,12 @@ option {
     height: 25px;
     border-radius: 5px;
     border: none;
-    color: var(--secondary-text-color);
+    transition: all 0.4s ease-in-out;
 }
 
 .result {
     font-size: 1.3rem;
     margin-top: 50px;
-    color: var(--text-color);
 }
 
 .modification {
@@ -130,6 +167,91 @@ option {
     margin-top: 100px;
     background-color: var(--main-color);
     text-align: center;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.divInter {
+    width: 60%;
+    height: 80%;
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.addUnit {
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+
+.addUnit p {
+    margin-bottom: 10px;
+}
+
+.addUnit p:first-child {
+    margin-top: -50px;
+}
+
+#buttonAddNewUnit {
+    width: 150px;
+    height: 40px;
+    border-radius: 50px;
+    border: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: all 0.4s ease-in-out;
+}
+
+#buttonAddNewUnit:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+}
+
+.removeUnit {
+    margin-top: -50px;
+}
+
+#buttonRemoveUnit {
+    width: 130px;
+    height: 40px;
+    border-radius: 50px;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: all 0.4s ease-in-out;
+}
+
+#buttonRemoveUnit:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+}
+
+@media screen and (max-width: 600px) {
+    .convertisseur {
+        width: 90%;
+    }
+
+    .modification {
+        width: 90%;
+    }
+
+    .divInter {
+        flex-direction: column;
+    }
+
+    .addUnit {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .addUnit p:first-child {
+        margin-top: 0px;
+    }
+
 }
