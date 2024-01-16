@@ -25,6 +25,9 @@ const $options = document.querySelectorAll('option');
 const $headerItems = document.querySelectorAll('.headerItem');
 const $swap = document.querySelector('.swap');
 const $footerText = document.querySelector('.footerText');
+const $historique = document.querySelector('div.historique');
+const $historiqueList = document.querySelector('ul.historique');
+const $historiqueText = document.querySelector('div.historique p');
 
 let $listOptions = [];
 if (document.cookie === "") {
@@ -46,6 +49,23 @@ if (document.cookie === "") {
 reponseSelecteur_1.innerHTML = $listOptions;
 reponseSelecteur_2.innerHTML = $listOptions;
 removeSelecteur.innerHTML = $listOptions;
+
+
+let historique = [];
+let change = false;
+let start;
+
+function AjouterHistorique(start) {
+    setTimeout(() => {
+        let end = new Date();
+        if (end - start > 3000 && (valeurInput_1.value !== "0" && valeurInput_1.value !== "") && (valeurInput_2.value !== "0" && valeurInput_2.value !== "")) {
+            historique.push(`${valeurInput_1.value == 0 ? "0" : valeurInput_1.value} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} = ${Math.round(valeurInput_2.value * 100) / 100} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}`);
+            let newHistorique = document.createElement("li");
+            newHistorique.textContent = historique[historique.length - 1];
+            $historiqueList.appendChild(newHistorique);
+        }
+    }, 3000);
+}
 
 $colorMode.addEventListener('click', (event) => {
     const colorMode = getComputedStyle($colorMode).getPropertyValue('background-image');
@@ -115,33 +135,105 @@ $colorMode.addEventListener('click', (event) => {
 });
 
 valeurInput_1.addEventListener("input", (event) => {
-    valeurInput_2.value = (valeurInput_1.value * reponseSelecteur_1.value) / reponseSelecteur_2.value;
-    $result.textContent = `${valeurInput_1.value == 0 ? "0" : valeurInput_1.value} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_2.value * 100) / 100} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}.`;
+    if ((valeurInput_1.value !== "" || valeurInput_2.value !== "") && reponseSelecteur_1.value !== "" && reponseSelecteur_2.value !== "") {
+        valeurInput_2.value = (valeurInput_1.value * reponseSelecteur_1.value) / reponseSelecteur_2.value;
+        $result.textContent = `${valeurInput_1.value == 0 ? "0" : valeurInput_1.value} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_2.value * 100) / 100} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}.`;
+        change = true;
+    } else {
+        $result.textContent = "";
+        valeurInput_2.value = "";
+    }
 })
 
 valeurInput_2.addEventListener("input", (event) => {
-    valeurInput_1.value = (valeurInput_2.value * reponseSelecteur_2.value) / reponseSelecteur_1.value;
-    $result.textContent = `${valeurInput_2.value == 0 ? "0" : valeurInput_2.value} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_1.value * 100) / 100} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""}.`;
+    if ((valeurInput_1.value !== "" || valeurInput_2.value !== "") && reponseSelecteur_1.value !== "" && reponseSelecteur_2.value !== "") {
+        valeurInput_1.value = (valeurInput_2.value * reponseSelecteur_2.value) / reponseSelecteur_1.value;
+        $result.textContent = `${valeurInput_2.value == 0 ? "0" : valeurInput_2.value} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_1.value * 100) / 100} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""}.`;
+        change = true;
+    } else {
+        $result.textContent = "";
+        valeurInput_1.value = "";
+    }
 })
 
 reponseSelecteur_1.addEventListener("change", (event) => {
-    valeurInput_1.value = (valeurInput_2.value * reponseSelecteur_2.value) / reponseSelecteur_1.value;
-    $result.textContent = `${valeurInput_2.value == 0 ? "0" : valeurInput_2.value} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_1.value * 100) / 100} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""}.`;
+    if ((valeurInput_1.value !== "" || valeurInput_2.value !== "") && reponseSelecteur_1.value !== "" && reponseSelecteur_2.value !== "") {
+        valeurInput_1.value = (valeurInput_2.value * reponseSelecteur_2.value) / reponseSelecteur_1.value;
+        $result.textContent = `${valeurInput_2.value == 0 ? "0" : valeurInput_2.value} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_1.value * 100) / 100} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""}.`;
+        change = true;
+    } else {
+        $result.textContent = "";
+        valeurInput_1.value = "";
+    }
 });
 
 reponseSelecteur_2.addEventListener("change", (event) => {
-    valeurInput_2.value = (valeurInput_1.value * reponseSelecteur_1.value) / reponseSelecteur_2.value;
-    $result.textContent = `${valeurInput_1.value == 0 ? "0" : valeurInput_1.value} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_2.value * 100) / 100} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}.`;
+    if ((valeurInput_1.value !== "" || valeurInput_2.value !== "") && reponseSelecteur_1.value !== "" && reponseSelecteur_2.value !== "") {
+        valeurInput_2.value = (valeurInput_1.value * reponseSelecteur_1.value) / reponseSelecteur_2.value;
+        $result.textContent = `${valeurInput_1.value == 0 ? "0" : valeurInput_1.value} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_2.value * 100) / 100} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}.`;
+        change = true;
+    } else {
+        $result.textContent = "";
+        valeurInput_2.value = "";
+    }
+
 });
 
+setInterval(() => {
+    if (change) {
+        change = false;
+        start = new Date();
+        AjouterHistorique(start);
+    }
+}, 1000);
+
 $swap.addEventListener('click', (event) => {
-    let temp = reponseSelecteur_1.selectedIndex;
-    reponseSelecteur_1.selectedIndex = reponseSelecteur_2.selectedIndex;
-    reponseSelecteur_2.selectedIndex = temp;
-    temp = valeurInput_1.value;
-    valeurInput_1.value = valeurInput_2.value;
-    valeurInput_2.value = temp;
-    $result.textContent = `${valeurInput_1.value == 0 ? "0" : Math.round(valeurInput_1.value * 100) / 100} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_2.value * 100) / 100} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}.`;
+    if (reponseSelecteur_1.value !== "" && reponseSelecteur_2.value !== "") {
+        let temp = reponseSelecteur_1.selectedIndex;
+        reponseSelecteur_1.selectedIndex = reponseSelecteur_2.selectedIndex;
+        reponseSelecteur_2.selectedIndex = temp;
+        temp = valeurInput_1.value;
+        valeurInput_1.value = valeurInput_2.value;
+        valeurInput_2.value = temp;
+        if (valeurInput_1.value !== "" && valeurInput_2.value !== "") {
+            $result.textContent = `${valeurInput_1.value == 0 ? "0" : Math.round(valeurInput_1.value * 100) / 100} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_2.value * 100) / 100} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}.`;
+        }
+    }
+});
+
+$historique.addEventListener('click', (event) => {
+    $historiqueList.classList.toggle('hidden');
+    if ($historiqueList.classList.contains('hidden')) {
+        $historique.style.width = "150px";
+        $historique.style.height = "75px";
+        $historique.style.left = "91.5%";
+        $convertisseurPage.style.left = "0px";
+    } else {
+        $historique.style.width = "20%";
+        $historique.style.height = "300px";
+        $historique.style.left = "80.4%";
+        $convertisseurPage.style.left = "-200px";
+    }
+});
+
+$historique.addEventListener('mouseover', (event) => {
+    const historiqueWidth = getComputedStyle($historique).getPropertyValue('width');
+    if (historiqueWidth == "50px") {
+        $historique.style.width = "150px";
+        $historique.style.height = "75px";
+        $historique.style.left = "91.5%";
+        $historiqueText.classList.toggle("hidden");
+    }
+});
+
+$historique.addEventListener('mouseout', (event) => {
+    const historiqueWidth = getComputedStyle($historique).getPropertyValue('width');
+    if (historiqueWidth == "150px") {
+        $historique.style.width = "50px";
+        $historique.style.height = "75px";
+        $historique.style.left = "97.5%";
+        $historiqueText.classList.toggle("hidden");
+    }
 });
 
 //add une new valeur dans le selecteur:
@@ -186,3 +278,5 @@ $modification.addEventListener('click', (event) => {
     $convertisseurPage.classList.add('hidden');
     $modificationPage.style.display = "flex";
 });
+
+onmousemove = function (e) { console.log("mouse location:", e.clientX, e.clientY) }; /*Emplacement de la souris*/

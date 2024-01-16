@@ -119,11 +119,13 @@ body {
     width: 70%;
     height: 500px;
     border-radius: 20px;
+    position: relative;
     margin-left: auto;
     margin-right: auto;
     margin-top: 100px;
     background-color: var(--main-color);
     text-align: center;
+    transition: all 0.4s ease-in-out;
 }
 
 .title {
@@ -286,6 +288,48 @@ option {
     font-size: 1.2rem;
     margin-top: 15px;
     margin-bottom: 0px;
+    transition: all 0.4s ease-in-out;
+}
+
+div.historique {
+    width: 50px;
+    height: 75px;
+    position: relative;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    top: -588px;
+    left: 97.5%;
+    overflow: hidden;
+    background-color: var(--main-color);
+    transition: all 0.4s ease-in-out;
+}
+
+div.historique p {
+    font-size: 1.3rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    transition: all 0.4s ease-in-out;
+}
+
+div.historique:hover p {
+    width: 100%;
+}
+
+ul.historique {
+    width: 90%;
+    padding-left: 0;
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.4s ease-in-out;
+}
+
+ul.historique li {
+    font-size: 1.0rem;
+    text-align: center;
+    width: 100%;
     transition: all 0.4s ease-in-out;
 }
 
