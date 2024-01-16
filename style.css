@@ -31,8 +31,9 @@ body {
 .colorMode {
     background-image: url('daymodeicon.png');
     background-size: cover;
-    width: 70px;
+    width: 63px;
     height: 70px;
+    border-radius: 100px;
     position: relative;
     transition: width 0.4s ease-in-out,
         background-image 0.0s ease-in-out 0.38s;
@@ -85,11 +86,11 @@ body {
 }
 
 .menu:hover #Convertisseur {
-    left: 14%;
+    left: 12%;
 }
 
 .menu:hover #Modification {
-    right: 10%;
+    right: 9%;
 }
 
 .homeIcon {
@@ -104,7 +105,7 @@ body {
 
 .headerItem {
     display: none;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     position: absolute;
     transition: all 0.4s ease-in-out;
 }
@@ -263,6 +264,29 @@ option {
 #buttonRemoveUnit:hover {
     cursor: pointer;
     transform: scale(1.03);
+}
+
+.footer {
+    width: 80%;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 1px solid;
+}
+
+.footer.day {
+    border-color: var(--background-night);
+}
+
+.footer.night {
+    border-color: var(--background-day);
+}
+
+.footerText {
+    font-size: 1.2rem;
+    margin-top: 15px;
+    margin-bottom: 0px;
+    transition: all 0.4s ease-in-out;
 }
 
 @media screen and (max-width: 600px) {

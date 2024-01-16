@@ -24,12 +24,14 @@ const $inputs = document.querySelectorAll('.value');
 const $options = document.querySelectorAll('option');
 const $headerItems = document.querySelectorAll('.headerItem');
 const $swap = document.querySelector('.swap');
+const $footerText = document.querySelector('.footerText');
 
 let $listOptions = [];
 if (document.cookie === "") {
-    $listOptions = document.querySelectorAll('#selecteur_1 option');
-    $listOptions.forEach(option => {
+    const $basicOptions = document.querySelectorAll('#selecteur_1 option');
+    $basicOptions.forEach(option => {
         document.cookie = `${option.text}=${option.value}`
+        $listOptions.push("<option value=" + option.value + ">" + option.text + "</option>");
     });
 } else {
     const cookieDecode = decodeURIComponent(document.cookie);
@@ -47,8 +49,7 @@ removeSelecteur.innerHTML = $listOptions;
 
 $colorMode.addEventListener('click', (event) => {
     const colorMode = getComputedStyle($colorMode).getPropertyValue('background-image');
-    console.log(colorMode);
-    if (colorMode == "url(\"nightmode.png\")" || colorMode == "url(\"http://10.0.10.174:5500/nightmode.png\")") {
+    if (colorMode == "url(\"nightmode.png\")" || colorMode == "url(\"http://127.0.0.1:5500/nightmode.png\")") {
         $colorMode.classList.add('day');
         $colorMode.classList.remove('night');
         $body.classList.add('day');
@@ -65,6 +66,8 @@ $colorMode.addEventListener('click', (event) => {
         $buttonAddNewUnit.classList.remove('night');
         $buttonRemoveUnit.classList.add('day');
         $buttonRemoveUnit.classList.remove('night');
+        $footerText.classList.add('day');
+        $footerText.classList.remove('night');
         $selectors.forEach(selector => {
             selector.classList.add('day');
             selector.classList.remove('night');
@@ -94,6 +97,8 @@ $colorMode.addEventListener('click', (event) => {
         $buttonAddNewUnit.classList.remove('day');
         $buttonRemoveUnit.classList.add('night');
         $buttonRemoveUnit.classList.remove('day');
+        $footerText.classList.add('night');
+        $footerText.classList.remove('day');
         $selectors.forEach(selector => {
             selector.classList.add('night');
             selector.classList.remove('day');
