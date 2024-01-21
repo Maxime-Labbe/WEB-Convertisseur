@@ -28,7 +28,14 @@ const $swap = document.querySelector('.swap');
 const $footerText = document.querySelector('.footerText');
 const $historique = document.querySelector('div.historique');
 const $historiqueList = document.querySelector('ul.historique');
-const $historiqueText = document.querySelector('div.historique p');
+
+let version;
+
+if (parseInt(getComputedStyle($body).getPropertyValue('width').split("p")[0]) + 16 <= 600) {
+    version = "mobile";
+} else {
+    version = "desktop";
+}
 
 let $listUnits = ['<option value="" disabled selected>Please select a unit</option>',
     '<option value="1">Meter</option>',
@@ -176,7 +183,7 @@ let $listMoney = ['<option value="" disabled selected>Please select a currency</
     '<option value="20.75">South African Rand (ZAR)</option>',
     '<option value="28.77">Zambian Kwacha (ZMW)</option>'];
 
-/*if (document.cookie === "") {
+if (document.cookie === "") {
     const $basicOptions = document.querySelectorAll('#selecteur_1 option');
     $basicOptions.forEach(option => {
         document.cookie = `${option.text}=${option.value}`
@@ -190,7 +197,7 @@ let $listMoney = ['<option value="" disabled selected>Please select a currency</
         const value = val.split('=')[1];
         $listUnits.push("<option value=" + value + ">" + name + "</option>");
     })
-}*/
+}
 
 reponseSelecteur_1.innerHTML = $listUnits;
 reponseSelecteur_2.innerHTML = $listUnits;
@@ -200,14 +207,17 @@ removeSelecteur.innerHTML = $listUnits;
 let historique = [];
 let change = false;
 let start;
-let $historiqueElems = document.querySelectorAll('ul.historique li');
 
 function AjouterHistorique(start) {
     setTimeout(() => {
         let end = new Date();
         if (end - start > 3000 && (valeurInput_1.value !== "0" && valeurInput_1.value !== "") && (valeurInput_2.value !== "0" && valeurInput_2.value !== "")) {
-            historique.push([valeurInput_1.value == 0 ? "0" : valeurInput_1.value, `${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} `, Math.round(valeurInput_2.value * 100) / 100, `${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}`]);
             let newHistorique = document.createElement("li");
+            if ($title.value == "Units") {
+                historique.push([valeurInput_1.value == 0 ? "0" : valeurInput_1.value, `${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} `, Math.round(valeurInput_2.value * 100) / 100, `${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}`]);
+            } else {
+                historique.push([valeurInput_1.value == 0 ? "0" : valeurInput_1.value, `${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text.split(" (")[0]}${valeurInput_1.value > 1 ? "s" : ""} `, Math.round(valeurInput_2.value * 100) / 100, `${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text.split(" (")[0]}${valeurInput_2.value > 1 ? "s" : ""}`]);
+            }
             newHistorique.textContent = historique[historique.length - 1][0] + " " + historique[historique.length - 1][1] + " = " + historique[historique.length - 1][2] + " " + historique[historique.length - 1][3];
             $historiqueList.appendChild(newHistorique);
         }
@@ -215,8 +225,8 @@ function AjouterHistorique(start) {
 }
 
 $colorMode.addEventListener('click', (event) => {
-    const colorMode = getComputedStyle($colorMode).getPropertyValue('background-image');
-    if (colorMode == "url(\"nightmode.png\")" || colorMode == "url(\"http://127.0.0.1:5500/nightmode.png\")") {
+    const colorMode = getComputedStyle($colorMode).getPropertyValue('background-image').split("/")[getComputedStyle($colorMode).getPropertyValue('background-image').split("/").length - 1].split("\")")[0];
+    if ((colorMode == "nightmode.png" && version == "desktop") || (colorMode == "nightmodeicon.png" && version == "mobile")) {
         $colorMode.classList.add('day');
         $colorMode.classList.remove('night');
         $body.classList.add('day');
@@ -293,11 +303,9 @@ $title.addEventListener('change', (event) => {
     if ($title.value == "Money") {
         reponseSelecteur_1.innerHTML = $listMoney;
         reponseSelecteur_2.innerHTML = $listMoney;
-        /*removeSelecteur.innerHTML = $listMoney;*/
     } else {
         reponseSelecteur_1.innerHTML = $listUnits;
         reponseSelecteur_2.innerHTML = $listUnits;
-        /*removeSelecteur.innerHTML = $listUnits;*/
     }
     valeurInput_1.value = "";
     valeurInput_2.value = "";
@@ -368,49 +376,44 @@ setInterval(() => {
         change = false;
         start = new Date();
         AjouterHistorique(start);
-        $historiqueElems = document.querySelectorAll('ul.historique li');
     }
 }, 1000);
 
 $historique.addEventListener('click', (event) => {
-    $historiqueList.classList.toggle('hidden');
-    if ($historiqueList.classList.contains('hidden')) {
-        $historique.style.width = "150px";
-        $historique.style.height = "75px";
-        $historique.style.left = "92.55%";
-        $convertisseurPage.style.left = "0px";
+    if (!$historiqueList.classList.contains('hidden')) {
+        if (version == "desktop") {
+            $historique.style.width = "150px";
+            $historique.style.height = "75px";
+            $historique.style.left = "92.55%";
+            $convertisseurPage.style.left = "0px";
+            $modificationPage.style.left = "0px";
+        } else {
+            $historique.style.width = "100px";
+            $historique.style.height = "75px";
+            $historique.style.left = "calc(100% - 100px + 16px)";
+            $convertisseurPage.style.top = "0px";
+            $modificationPage.style.top = "0px";
+        }
+        $historiqueList.classList.toggle('hidden');
+
     } else {
-        $historique.style.width = "20%";
-        $historique.style.height = "300px";
-        $historique.style.left = "80.4%";
-        $convertisseurPage.style.left = "-10%";
+        if (version == "desktop") {
+            $historique.style.width = "20%";
+            $historique.style.height = "300px";
+            $historique.style.left = "80.4%";
+            $convertisseurPage.style.left = "-10%";
+            $modificationPage.style.left = "-10%";
+        } else {
+            $historique.style.width = "100%";
+            $historique.style.height = "300px";
+            $historique.style.left = "0px";
+            $convertisseurPage.style.top = "300px";
+            $modificationPage.style.top = "300px";
+        }
+        setTimeout(() => {
+            $historiqueList.classList.toggle('hidden');
+        }, 150);
     }
-});
-
-$historique.addEventListener('mouseover', (event) => {
-    const historiqueWidth = getComputedStyle($historique).getPropertyValue('width');
-    if (historiqueWidth == "50px") {
-        $historique.style.width = "150px";
-        $historique.style.height = "75px";
-        $historique.style.left = "92.55%";
-        $historiqueText.classList.remove("hidden");
-    }
-});
-
-$historique.addEventListener('mouseout', (event) => {
-    const historiqueWidth = getComputedStyle($historique).getPropertyValue('width');
-    if (historiqueWidth == "150px") {
-        $historique.style.width = "50px";
-        $historique.style.height = "75px";
-        $historique.style.left = "97.8%";
-        $historiqueText.classList.add("hidden");
-    }
-});
-
-$historiqueElems.forEach(elem => {
-    elem.addEventListener('click', (event) => {
-        console.log(elem);
-    });
 });
 
 //add une new valeur dans le selecteur:
@@ -455,22 +458,3 @@ $modification.addEventListener('click', (event) => {
     $convertisseurPage.classList.add('hidden');
     $modificationPage.style.display = "flex";
 });
-
-/*setInterval(() => {
-    onmousemove = (e) => {
-        var offsets = $historique.getBoundingClientRect();
-        if (e.clientX >= offsets.left && e.clientX <= offsets.left + $historique.offsetWidth && e.clientY >= offsets.top && e.clientY <= offsets.top + $historique.offsetHeight) {
-            $historiqueText.classList.toggle("hidden");
-            const historiqueWidth = getComputedStyle($historique).getPropertyValue('width');
-            if (historiqueWidth == "50px") {
-                $historique.style.width = "150px";
-                $historique.style.height = "75px";
-                $historique.style.left = "91.5%";
-            } else if (historiqueWidth == "150px") {
-                $historique.style.width = "50px";
-                $historique.style.height = "75px";
-                $historique.style.left = "97.5%";
-            }
-        }
-    }; /*Emplacement de la souris
-}, 100);*/
