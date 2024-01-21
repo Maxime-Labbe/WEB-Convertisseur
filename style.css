@@ -3,6 +3,7 @@ html {
 }
 
 body {
+    max-height: 500px;
     transition: all 0.4s ease-in-out;
 }
 
@@ -112,7 +113,7 @@ body {
 
 .headerItem:hover {
     cursor: pointer;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .convertisseur {
@@ -130,8 +131,14 @@ body {
 
 .title {
     font-size: 3rem;
-    padding-top: 30px;
+    margin-top: 30px;
+    border: none;
+    background-color: var(--main-color);
     transition: all 0.4s ease-in-out;
+}
+
+.title option {
+    text-align: center;
 }
 
 .alignColumn {
@@ -156,7 +163,7 @@ body {
     height: 30px;
     border-radius: 5px;
     border: none;
-    margin-top: 40px;
+    margin-top: 80px;
     margin-bottom: 20px;
     transition: all 0.4s ease-in-out;
 }
@@ -178,7 +185,7 @@ option {
     height: 50px;
     background-image: url('swapday.png');
     background-size: cover;
-    margin-top: 50px;
+    margin-top: 80px;
     transition: all 0.4s ease-in-out;
 }
 
@@ -190,7 +197,6 @@ option {
 .result {
     font-size: 1.3rem;
     margin-top: 50px;
-    transition: all 0.4s ease-in-out;
 }
 
 .modification {
@@ -298,8 +304,8 @@ div.historique {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     top: -588px;
-    left: 97.5%;
-    overflow: hidden;
+    left: 97.8%;
+    overflow: auto;
     background-color: var(--main-color);
     transition: all 0.4s ease-in-out;
 }
@@ -310,7 +316,7 @@ div.historique p {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    transition: all 0.4s ease-in-out;
+    font-weight: bolder;
 }
 
 div.historique:hover p {
@@ -323,14 +329,12 @@ ul.historique {
     list-style-type: none;
     margin-left: auto;
     margin-right: auto;
-    transition: all 0.4s ease-in-out;
 }
 
 ul.historique li {
-    font-size: 1.0rem;
+    font-size: 1.05rem;
     text-align: center;
     width: 100%;
-    transition: all 0.4s ease-in-out;
 }
 
 @media screen and (max-width: 600px) {

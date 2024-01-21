@@ -34,11 +34,14 @@
         </div>
     </div>
     <div class="convertisseur dayText">
-        <h1 class="title">Converter of units</h1>
+        <select class="title dayText">
+            <option value="Units">Converter of units</option>
+            <option value="Money">Converter of money</option>
+        </select>
         <div class="alignRow">
             <div class="alignColumn">
                 <select class="selector" id="selecteur_1">
-                    <option value="" disabled selected>Please select a unit</option>
+                    <!--<option value="" disabled selected>Please select a unit</option>
                     <option value="1">Meter</option>
                     <option value="1000">Kilometer</option>
                     <option value="0.01">Centimeter</option>
@@ -46,7 +49,7 @@
                     <option value="1.756">Man</option>
                     <option value="0.1467">Smartphone</option>
                     <option value="56">Ariane 5</option>
-                    <option value="1970">Golden Gate</option>
+                    <option value="1970">Golden Gate</option>-->
                 </select>
 
                 <input class="value" type="number" id="valeurInput_1" required />
@@ -54,7 +57,7 @@
             <div class="swap"></div>
             <div class="alignColumn">
                 <select class="selector" id="selecteur_2">
-                    <option value="" disabled selected>Please select a unit</option>
+                    <!--<option value="" disabled selected>Please select a unit</option>
                     <option value="1">Meter</option>
                     <option value="1000">Kilometer</option>
                     <option value="0.01">Centimeter</option>
@@ -62,7 +65,7 @@
                     <option value="1.756">Man</option>
                     <option value="0.1467">Smartphone</option>
                     <option value="56">Ariane 5</option>
-                    <option value="1970">Golden Gate</option>
+                    <option value="1970">Golden Gate</option>-->
                 </select>
 
                 <input class="value" type="number" id="valeurInput_2" />
@@ -105,10 +108,9 @@
         <h4 class="footerText day">Made by Labbe Maxime & Verbrugge Louis © 2023-2024</h4>
     </div>
 
-    <div class="historique day">
-        <p class="dayText hidden">Historique</p>
+    <div class="historique">
+        <p class="hidden">Historique</p>
         <ul class="historique hidden">
-
         </ul>
     </div>
 </body>
