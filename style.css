@@ -43,7 +43,7 @@ body {
 }
 
 .colorMode {
-    background-image: url('daymodeicon.png');
+    background-image: url('/assets/daymodeicon.png');
     background-size: cover;
     width: 63px;
     height: 70px;
@@ -60,19 +60,19 @@ body {
 }
 
 .colorMode.day {
-    background-image: url("daymodeicon.png");
+    background-image: url("/assets/daymodeicon.png");
 }
 
 .colorMode.night {
-    background-image: url("nightmodeicon.png");
+    background-image: url("/assets/nightmodeicon.png");
 }
 
 .colorMode.day:hover {
-    background-image: url("daymode.png");
+    background-image: url("/assets/daymode.png");
 }
 
 .colorMode.night:hover {
-    background-image: url("nightmode.png");
+    background-image: url("/assets/nightmode.png");
 }
 
 .menu {
@@ -112,7 +112,7 @@ body {
     height: 55px;
     margin-left: auto;
     margin-right: auto;
-    background-image: url('homeiconday.jpg');
+    background-image: url('/assets/homeiconday.jpg');
     background-size: cover;
     transition: all 0.4s ease-in-out;
 }
@@ -195,7 +195,7 @@ option {
 .swap {
     width: 50px;
     height: 50px;
-    background-image: url('swapday.png');
+    background-image: url('/assets/swapday.png');
     background-size: cover;
     margin-top: 80px;
     transition: all 0.4s ease-in-out;
@@ -206,9 +206,26 @@ option {
     transform: rotate(180deg);
 }
 
-.result {
+p.result {
     font-size: 1.3rem;
     margin-top: 50px;
+}
+
+div.result {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.imageResult {
+    width: 400px;
+    height: 100px;
+    transition: all 0.4s ease-in-out;
 }
 
 .modification {
@@ -352,6 +369,12 @@ ul.historique li {
     margin-bottom: 5px;
 }
 
+@media screen and (max-width: 1200px) {
+    .imageResult {
+        width: 300px;
+    }
+}
+
 @media screen and (max-width: 1100px) {
     .convertisseur {
         width: 75%;
@@ -400,6 +423,10 @@ ul.historique li {
         height: 40px;
     }
 
+    .imageResult {
+        width: 200px;
+    }
+
     div.historique {
         width: 75px;
     }
@@ -442,23 +469,65 @@ ul.historique li {
     div.historique p {
         font-size: 0.8rem;
     }
+
 }
 
 @media screen and (max-width: 600px) {
+    .header {
+        height: 100px;
+    }
+
     .colorMode {
         transition: all 0.4s ease-in-out;
     }
 
     .colorMode.day:hover {
-        background-image: url("daymodeicon.png");
+        background-image: url("/assets/daymodeicon.png");
     }
 
     .colorMode.night:hover {
-        background-image: url("nightmodeicon.png");
+        background-image: url("/assets/nightmodeicon.png");
     }
 
     .colorMode:hover {
         width: 63px;
+    }
+
+    .menu {
+        width: 55px;
+        height: 55px;
+        position: relative;
+        left: calc(100% - 58px);
+        top: -60px;
+        margin: 0;
+    }
+
+    .menu:hover {
+        cursor: pointer;
+        width: 275px;
+        left: calc(100% - 275px);
+    }
+
+    .menu:hover .homeIcon {
+        position: absolute;
+        left: calc(100% - 50px);
+    }
+
+    .menu:hover #Convertisseur {
+        left: 8%;
+    }
+
+    .menu:hover #Modification {
+        right: 20%;
+    }
+
+    .homeIcon {
+        width: 45px;
+        height: 45px;
+    }
+
+    .headerItem {
+        font-size: 1.2rem;
     }
 
     .convertisseur {
@@ -514,10 +583,15 @@ ul.historique li {
 
     .footer {
         width: 90%;
+        position: relative;
     }
 
     .footerText {
         font-size: 1rem;
+    }
+
+    div.historique {
+        top: -680px;
     }
 
     @media screen and (max-width: 450px) {
@@ -525,6 +599,8 @@ ul.historique li {
             font-size: 1.9rem;
         }
 
-
+        div.historique {
+            top: -700px;
+        }
     }
 }

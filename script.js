@@ -1,14 +1,14 @@
-let reponseSelecteur_1 = document.getElementById("selecteur_1")
-let reponseSelecteur_2 = document.getElementById("selecteur_2")
-let valeurInput_1 = document.getElementById("valeurInput_1")
-let valeurInput_2 = document.getElementById("valeurInput_2")
+let $reponseSelecteur_1 = document.querySelector("#selecteur_1");
+let $reponseSelecteur_2 = document.querySelector("#selecteur_2");
+let $valeurInput_1 = document.querySelector("#valeurInput_1");
+let $valeurInput_2 = document.querySelector("#valeurInput_2");
 
-const $buttonAddNewUnit = document.getElementById("buttonAddNewUnit");
-let addTitle = document.getElementById("addTitle")
-let addValeurMetre = document.getElementById("addValeurMetre")
+const $buttonAddNewUnit = document.querySelector("#buttonAddNewUnit");
+let $addTitle = document.querySelector("#addTitle")
+let $addValeurMetre = document.querySelector("#addValeurMetre")
 
-const removeSelecteur = document.getElementById("removeSelecteur")
-const $buttonRemoveUnit = document.getElementById("buttonRemoveUnit")
+const $removeSelecteur = document.querySelector("#removeSelecteur")
+const $buttonRemoveUnit = document.querySelector("#buttonRemoveUnit")
 
 const $body = document.querySelector('body');
 const $colorMode = document.querySelector('.colorMode');
@@ -19,12 +19,15 @@ const $convertisseurPage = document.querySelector('.convertisseur');
 const $modificationPage = document.querySelector('.modification');
 const $menu = document.querySelector('.menu');
 const $title = document.querySelector('.title');
-const $result = document.querySelector('.result');
+const $result = document.querySelector('p.result');
+const $divImageResult = document.querySelector('div.result');
+const $imageResult = document.querySelectorAll('.imageResult');
 const $selectors = document.querySelectorAll('.selector');
 const $inputs = document.querySelectorAll('.value');
 const $options = document.querySelectorAll('option');
 const $headerItems = document.querySelectorAll('.headerItem');
 const $swap = document.querySelector('.swap');
+const $footer = document.querySelector('.footer');
 const $footerText = document.querySelector('.footerText');
 const $historique = document.querySelector('div.historique');
 const $historiqueList = document.querySelector('ul.historique');
@@ -33,19 +36,12 @@ let version;
 
 if (parseInt(getComputedStyle($body).getPropertyValue('width').split("p")[0]) + 16 <= 600) {
     version = "mobile";
+    $divImageResult.style.display = "none";
 } else {
     version = "desktop";
 }
 
-let $listUnits = ['<option value="" disabled selected>Please select a unit</option>',
-    '<option value="1">Meter</option>',
-    '<option value="1000">Kilometer</option>',
-    '<option value="0.01">Centimeter</option>',
-    '<option value="330">Effeil Tower</option>',
-    '<option value="1.756">Man</option>',
-    '<option value="0.1467">Smartphone</option>',
-    '<option value="56">Ariane 5</option>',
-    '<option value="1970">Golden Gate</option>'];
+let $listUnits = [];
 
 let $listMoney = ['<option value="" disabled selected>Please select a currency</option>',
     '<option value="4.01">United Arab Emirates Dirham (AED)</option>',
@@ -184,10 +180,17 @@ let $listMoney = ['<option value="" disabled selected>Please select a currency</
     '<option value="28.77">Zambian Kwacha (ZMW)</option>'];
 
 if (document.cookie === "") {
-    const $basicOptions = document.querySelectorAll('#selecteur_1 option');
-    $basicOptions.forEach(option => {
-        document.cookie = `${option.text}=${option.value}`
-        $listUnits.push("<option value=" + option.value + ">" + option.text + "</option>");
+    $listUnits = ['<option value="" disabled selected>Please select a unit</option>',
+        '<option value="1">Meter</option>',
+        '<option value="1000">Kilometer</option>',
+        '<option value="0.01">Centimeter</option>',
+        '<option value="330">Eiffel Tower</option>',
+        '<option value="1.756">Man</option>',
+        '<option value="0.1467">Smartphone</option>',
+        '<option value="56">Ariane 5</option>',
+        '<option value="1970">Golden Gate</option>'];
+    $listUnits.forEach(option => {
+        document.cookie = `${option.split(">")[1].split("<")[0]}=${option.split('="')[1].split('"')[0]}`;
     });
 } else {
     const cookieDecode = decodeURIComponent(document.cookie);
@@ -199,9 +202,9 @@ if (document.cookie === "") {
     })
 }
 
-reponseSelecteur_1.innerHTML = $listUnits;
-reponseSelecteur_2.innerHTML = $listUnits;
-removeSelecteur.innerHTML = $listUnits;
+$reponseSelecteur_1.innerHTML = $listUnits;
+$reponseSelecteur_2.innerHTML = $listUnits;
+$removeSelecteur.innerHTML = $listUnits;
 
 
 let historique = [];
@@ -211,18 +214,37 @@ let start;
 function AjouterHistorique(start) {
     setTimeout(() => {
         let end = new Date();
-        if (end - start > 3000 && (valeurInput_1.value !== "0" && valeurInput_1.value !== "") && (valeurInput_2.value !== "0" && valeurInput_2.value !== "")) {
+        if (end - start > 3000 && ($valeurInput_1.value !== "0" && $valeurInput_1.value !== "") && ($valeurInput_2.value !== "0" && $valeurInput_2.value !== "")) {
             let newHistorique = document.createElement("li");
             if ($title.value == "Units") {
-                historique.push([valeurInput_1.value == 0 ? "0" : valeurInput_1.value, `${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} `, Math.round(valeurInput_2.value * 100) / 100, `${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}`]);
+                historique.push([$valeurInput_1.value == 0 ? "0" : $valeurInput_1.value, `${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}${$valeurInput_1.value > 1 ? "s" : ""} `, Math.round($valeurInput_2.value * 100) / 100, `${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}${$valeurInput_2.value > 1 ? "s" : ""}`]);
             } else {
-                historique.push([valeurInput_1.value == 0 ? "0" : valeurInput_1.value, `${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text.split(" (")[0]}${valeurInput_1.value > 1 ? "s" : ""} `, Math.round(valeurInput_2.value * 100) / 100, `${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text.split(" (")[0]}${valeurInput_2.value > 1 ? "s" : ""}`]);
+                historique.push([$valeurInput_1.value == 0 ? "0" : $valeurInput_1.value, `${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text.split(" (")[0]}${$valeurInput_1.value > 1 ? "s" : ""} `, Math.round($valeurInput_2.value * 100) / 100, `${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text.split(" (")[0]}${$valeurInput_2.value > 1 ? "s" : ""}`]);
             }
             newHistorique.textContent = historique[historique.length - 1][0] + " " + historique[historique.length - 1][1] + " = " + historique[historique.length - 1][2] + " " + historique[historique.length - 1][3];
             $historiqueList.appendChild(newHistorique);
         }
     }, 3000);
-}
+};
+
+function ImageResult(value, div, image) {
+    div.style.backgroundImage = `url('${image}')`;
+    const maxWidth = getComputedStyle(div).getPropertyValue('width').split("p")[0];
+    if (value * 100 > maxWidth) {
+        div.style.backgroundSize = `${maxWidth / value}px`;
+        div.style.width = `${maxWidth}px`;
+        div.style.height = `${maxWidth / value}px`;
+    } else {
+        div.style.backgroundSize = `${100}px`;
+        div.style.width = `${value * 100}px`;
+        div.style.height = `100px`;
+    }
+    if (value === '') {
+        div.style.display = "none";
+    } else {
+        div.style.display = "block";
+    }
+};
 
 $colorMode.addEventListener('click', (event) => {
     const colorMode = getComputedStyle($colorMode).getPropertyValue('background-image').split("/")[getComputedStyle($colorMode).getPropertyValue('background-image').split("/").length - 1].split("\")")[0];
@@ -231,14 +253,14 @@ $colorMode.addEventListener('click', (event) => {
         $colorMode.classList.remove('night');
         $body.classList.add('day');
         $body.classList.remove('night');
-        $homeIcon.style.backgroundImage = "url('homeiconday.jpg')";
+        $homeIcon.style.backgroundImage = "url('/assets/homeiconday.jpg')";
         $convertisseurPage.classList.add('dayText');
         $convertisseurPage.classList.remove('nightText');
         $menu.classList.add('dayText');
         $menu.classList.remove('nightText');
         $title.classList.add('dayText');
         $title.classList.remove('nightText');
-        $swap.style.backgroundImage = "url('swapday.png')";
+        $swap.style.backgroundImage = "url('/assets/swapday.png')";
         $historique.classList.add('dayText');
         $historique.classList.remove('nightText');
         $modificationPage.classList.add('dayText');
@@ -266,14 +288,14 @@ $colorMode.addEventListener('click', (event) => {
         $colorMode.classList.remove('day');
         $body.classList.add('night');
         $body.classList.remove('day');
-        $homeIcon.style.backgroundImage = "url('homeiconnight.png')";
+        $homeIcon.style.backgroundImage = "url('/assets/homeiconnight.png')";
         $convertisseurPage.classList.add('nightText');
         $convertisseurPage.classList.remove('dayText');
         $menu.classList.add('nightText');
         $menu.classList.remove('dayText');
         $title.classList.add('nightText');
         $title.classList.remove('dayText');
-        $swap.style.backgroundImage = "url('swapnight.png')";
+        $swap.style.backgroundImage = "url('/assets/swapnight.png')";
         $historique.classList.add('nightText');
         $historique.classList.remove('dayText');
         $modificationPage.classList.add('nightText');
@@ -301,71 +323,95 @@ $colorMode.addEventListener('click', (event) => {
 
 $title.addEventListener('change', (event) => {
     if ($title.value == "Money") {
-        reponseSelecteur_1.innerHTML = $listMoney;
-        reponseSelecteur_2.innerHTML = $listMoney;
+        $reponseSelecteur_1.innerHTML = $listMoney;
+        $reponseSelecteur_2.innerHTML = $listMoney;
     } else {
-        reponseSelecteur_1.innerHTML = $listUnits;
-        reponseSelecteur_2.innerHTML = $listUnits;
+        $reponseSelecteur_1.innerHTML = $listUnits;
+        $reponseSelecteur_2.innerHTML = $listUnits;
     }
-    valeurInput_1.value = "";
-    valeurInput_2.value = "";
+    $valeurInput_1.value = "";
+    $valeurInput_2.value = "";
 });
 
-valeurInput_1.addEventListener("input", (event) => {
-    if ((valeurInput_1.value !== "" || valeurInput_2.value !== "") && reponseSelecteur_1.value !== "" && reponseSelecteur_2.value !== "") {
-        valeurInput_2.value = (valeurInput_1.value * reponseSelecteur_1.value) / reponseSelecteur_2.value;
-        $result.textContent = `${valeurInput_1.value == 0 ? "0" : valeurInput_1.value} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_2.value * 100) / 100} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}.`;
+$valeurInput_1.addEventListener("input", (event) => {
+    if (($valeurInput_1.value !== "" || $valeurInput_2.value !== "") && $reponseSelecteur_1.value !== "" && $reponseSelecteur_2.value !== "") {
+        $valeurInput_2.value = ($valeurInput_1.value * $reponseSelecteur_1.value) / $reponseSelecteur_2.value;
+        $result.textContent = `${$valeurInput_1.value == 0 ? "0" : Math.round($valeurInput_1.value * 100) / 100} ${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}${$valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round($valeurInput_2.value * 100) / 100} ${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}${$valeurInput_2.value > 1 ? "s" : ""}.`;
         change = true;
+        if (version == "desktop") {
+            $divImageResult.style.display = "flex";
+            ImageResult($valeurInput_1.value, $imageResult[0], `/assets/${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}.png`);
+            ImageResult($valeurInput_2.value, $imageResult[1], `/assets/${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}.png`);
+        }
     } else {
         $result.textContent = "";
-        valeurInput_2.value = "";
-    }
-})
-
-valeurInput_2.addEventListener("input", (event) => {
-    if ((valeurInput_1.value !== "" || valeurInput_2.value !== "") && reponseSelecteur_1.value !== "" && reponseSelecteur_2.value !== "") {
-        valeurInput_1.value = (valeurInput_2.value * reponseSelecteur_2.value) / reponseSelecteur_1.value;
-        $result.textContent = `${valeurInput_2.value == 0 ? "0" : valeurInput_2.value} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_1.value * 100) / 100} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""}.`;
-        change = true;
-    } else {
-        $result.textContent = "";
-        valeurInput_1.value = "";
-    }
-})
-
-reponseSelecteur_1.addEventListener("change", (event) => {
-    if ((valeurInput_1.value !== "" || valeurInput_2.value !== "") && reponseSelecteur_1.value !== "" && reponseSelecteur_2.value !== "") {
-        valeurInput_1.value = (valeurInput_2.value * reponseSelecteur_2.value) / reponseSelecteur_1.value;
-        $result.textContent = `${valeurInput_2.value == 0 ? "0" : valeurInput_2.value} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_1.value * 100) / 100} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""}.`;
-        change = true;
-    } else {
-        $result.textContent = "";
-        valeurInput_1.value = "";
+        $valeurInput_2.value = "";
+        $divImageResult.style.display = "none";
     }
 });
 
-reponseSelecteur_2.addEventListener("change", (event) => {
-    if ((valeurInput_1.value !== "" || valeurInput_2.value !== "") && reponseSelecteur_1.value !== "" && reponseSelecteur_2.value !== "") {
-        valeurInput_2.value = (valeurInput_1.value * reponseSelecteur_1.value) / reponseSelecteur_2.value;
-        $result.textContent = `${valeurInput_1.value == 0 ? "0" : valeurInput_1.value} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_2.value * 100) / 100} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}.`;
+$valeurInput_2.addEventListener("input", (event) => {
+    if (($valeurInput_1.value !== "" || $valeurInput_2.value !== "") && $reponseSelecteur_1.value !== "" && $reponseSelecteur_2.value !== "") {
+        $valeurInput_1.value = ($valeurInput_2.value * $reponseSelecteur_2.value) / $reponseSelecteur_1.value;
+        $result.textContent = `${Math.round($valeurInput_1.value * 100) / 100} ${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}${$valeurInput_1.value > 1 ? "s" : ""} equals to ${$valeurInput_2.value == 0 ? "0" : Math.round($valeurInput_2.value * 100) / 100} ${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}${$valeurInput_2.value > 1 ? "s" : ""}.`;
         change = true;
+        if (version == "desktop") {
+            $divImageResult.style.display = "flex";
+            ImageResult($valeurInput_1.value, $imageResult[0], `/assets/${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}.png`);
+            ImageResult($valeurInput_2.value, $imageResult[1], `/assets/${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}.png`);
+        }
     } else {
         $result.textContent = "";
-        valeurInput_2.value = "";
+        $valeurInput_1.value = "";
+        $divImageResult.style.display = "none";
+    }
+})
+
+$reponseSelecteur_1.addEventListener("change", (event) => {
+    if (($valeurInput_1.value !== "" || $valeurInput_2.value !== "") && $reponseSelecteur_1.value !== "" && $reponseSelecteur_2.value !== "") {
+        $valeurInput_1.value = ($valeurInput_2.value * $reponseSelecteur_2.value) / $reponseSelecteur_1.value;
+        $result.textContent = `${Math.round($valeurInput_1.value * 100) / 100} ${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}${$valeurInput_1.value > 1 ? "s" : ""} equals to ${$valeurInput_2.value == 0 ? "0" : Math.round($valeurInput_2.value * 100) / 100} ${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}${$valeurInput_2.value > 1 ? "s" : ""}.`;
+        change = true;
+        if (version == "desktop") {
+            $divImageResult.style.display = "flex";
+            ImageResult($valeurInput_1.value, $imageResult[0], `/assets/${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}.png`);
+            ImageResult($valeurInput_2.value, $imageResult[1], `/assets/${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}.png`);
+        }
+    } else {
+        $result.textContent = "";
+        $valeurInput_1.value = "";
+        $divImageResult.style.display = "none";
+    }
+});
+
+$reponseSelecteur_2.addEventListener("change", (event) => {
+    if (($valeurInput_1.value !== "" || $valeurInput_2.value !== "") && $reponseSelecteur_1.value !== "" && $reponseSelecteur_2.value !== "") {
+        $valeurInput_2.value = ($valeurInput_1.value * $reponseSelecteur_1.value) / $reponseSelecteur_2.value;
+        $result.textContent = `${$valeurInput_1.value == 0 ? "0" : Math.round($valeurInput_1.value * 100) / 100} ${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}${$valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round($valeurInput_2.value * 100) / 100} ${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}${$valeurInput_2.value > 1 ? "s" : ""}.`;
+        change = true;
+        if (version == "desktop") {
+            $divImageResult.style.display = "flex";
+            ImageResult($valeurInput_1.value, $imageResult[0], `/assets/${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}.png`);
+            ImageResult($valeurInput_2.value, $imageResult[1], `/assets/${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}.png`);
+        }
+    } else {
+        $result.textContent = "";
+        $valeurInput_2.value = "";
+        $divImageResult.style.display = "none";
     }
 
 });
 
 $swap.addEventListener('click', (event) => {
-    if (reponseSelecteur_1.value !== "" && reponseSelecteur_2.value !== "") {
-        let temp = reponseSelecteur_1.selectedIndex;
-        reponseSelecteur_1.selectedIndex = reponseSelecteur_2.selectedIndex;
-        reponseSelecteur_2.selectedIndex = temp;
-        temp = valeurInput_1.value;
-        valeurInput_1.value = valeurInput_2.value;
-        valeurInput_2.value = temp;
-        if (valeurInput_1.value !== "" && valeurInput_2.value !== "") {
-            $result.textContent = `${valeurInput_1.value == 0 ? "0" : Math.round(valeurInput_1.value * 100) / 100} ${reponseSelecteur_1.options[reponseSelecteur_1.selectedIndex].text}${valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round(valeurInput_2.value * 100) / 100} ${reponseSelecteur_2.options[reponseSelecteur_2.selectedIndex].text}${valeurInput_2.value > 1 ? "s" : ""}.`;
+    if ($reponseSelecteur_1.value !== "" && $reponseSelecteur_2.value !== "") {
+        let temp = $reponseSelecteur_1.selectedIndex;
+        $reponseSelecteur_1.selectedIndex = $reponseSelecteur_2.selectedIndex;
+        $reponseSelecteur_2.selectedIndex = temp;
+        temp = $valeurInput_1.value;
+        $valeurInput_1.value = $valeurInput_2.value;
+        $valeurInput_2.value = temp;
+        if ($valeurInput_1.value !== "" && $valeurInput_2.value !== "") {
+            $result.textContent = `${$valeurInput_1.value == 0 ? "0" : Math.round($valeurInput_1.value * 100) / 100} ${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}${$valeurInput_1.value > 1 ? "s" : ""} equals to ${Math.round($valeurInput_2.value * 100) / 100} ${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}${$valeurInput_2.value > 1 ? "s" : ""}.`;
         }
         change = true;
     }
@@ -382,7 +428,7 @@ setInterval(() => {
 $historique.addEventListener('click', (event) => {
     if (!$historiqueList.classList.contains('hidden')) {
         if (version == "desktop") {
-            $historique.style.width = "150px";
+            $historique.style.width = "calc(7.45% + 8px)";
             $historique.style.height = "75px";
             $historique.style.left = "92.55%";
             $convertisseurPage.style.left = "0px";
@@ -393,6 +439,7 @@ $historique.addEventListener('click', (event) => {
             $historique.style.left = "calc(100% - 100px + 16px)";
             $convertisseurPage.style.top = "0px";
             $modificationPage.style.top = "0px";
+            $footer.style.top = "0px";
         }
         $historiqueList.classList.toggle('hidden');
 
@@ -406,9 +453,10 @@ $historique.addEventListener('click', (event) => {
         } else {
             $historique.style.width = "100%";
             $historique.style.height = "300px";
-            $historique.style.left = "0px";
+            $historique.style.left = "8px";
             $convertisseurPage.style.top = "300px";
             $modificationPage.style.top = "300px";
+            $footer.style.top = "300px";
         }
         setTimeout(() => {
             $historiqueList.classList.toggle('hidden');
@@ -419,33 +467,33 @@ $historique.addEventListener('click', (event) => {
 //add une new valeur dans le selecteur:
 $buttonAddNewUnit.addEventListener("click", (event) => {
 
-    if (addTitle.value !== "" && addValeurMetre.value !== "") {
+    if ($addTitle.value !== "" && $addValeurMetre.value !== "") {
 
-        var newOptionSelecteur1 = new Option(addTitle.value, addValeurMetre.value)
-        var newOptionSelecteur2 = new Option(addTitle.value, addValeurMetre.value)
-        var newOptionSelecteur3 = new Option(addTitle.value, addValeurMetre.value)
+        var newOptionSelecteur1 = new Option($addTitle.value, $addValeurMetre.value)
+        var newOptionSelecteur2 = new Option($addTitle.value, $addValeurMetre.value)
+        var newOptionSelecteur3 = new Option($addTitle.value, $addValeurMetre.value)
 
 
-        reponseSelecteur_1.add(newOptionSelecteur1, null)
-        reponseSelecteur_2.add(newOptionSelecteur2, null)
-        removeSelecteur.add(newOptionSelecteur3, null)
+        $reponseSelecteur_1.add(newOptionSelecteur1, null)
+        $reponseSelecteur_2.add(newOptionSelecteur2, null)
+        $removeSelecteur.add(newOptionSelecteur3, null)
 
-        document.cookie = `${addTitle.value}=${addValeurMetre.value}`
+        document.cookie = `${$addTitle.value}=${$addValeurMetre.value}`
 
-        addTitle.value = "";
-        addValeurMetre.value = "";
+        $addTitle.value = "";
+        $addValeurMetre.value = "";
     }
 })
 
 // fonction pour supprimer une valeur dans le selecteur:
 $buttonRemoveUnit.addEventListener("click", (event) => {
-    let indexSupprime = removeSelecteur.selectedIndex
+    let indexSupprime = $removeSelecteur.selectedIndex
 
-    document.cookie = removeSelecteur[indexSupprime].textContent + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = $removeSelecteur[indexSupprime].textContent + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-    removeSelecteur.remove(indexSupprime)
-    reponseSelecteur_1.remove(indexSupprime)
-    reponseSelecteur_2.remove(indexSupprime)
+    $removeSelecteur.remove(indexSupprime)
+    $reponseSelecteur_1.remove(indexSupprime)
+    $reponseSelecteur_2.remove(indexSupprime)
 
 })
 
