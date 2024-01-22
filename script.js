@@ -34,9 +34,9 @@ const $historiqueList = document.querySelector('ul.historique');
 
 let version;
 
+$divImageResult.style.display = "none";
 if (parseInt(getComputedStyle($body).getPropertyValue('width').split("p")[0]) + 16 <= 600) {
     version = "mobile";
-    $divImageResult.style.display = "none";
 } else {
     version = "desktop";
 }
@@ -253,14 +253,14 @@ $colorMode.addEventListener('click', (event) => {
         $colorMode.classList.remove('night');
         $body.classList.add('day');
         $body.classList.remove('night');
-        $homeIcon.style.backgroundImage = "url('/assets/homeiconday.jpg')";
+        $homeIcon.style.backgroundImage = "url('assets/homeiconday.jpg')";
         $convertisseurPage.classList.add('dayText');
         $convertisseurPage.classList.remove('nightText');
         $menu.classList.add('dayText');
         $menu.classList.remove('nightText');
         $title.classList.add('dayText');
         $title.classList.remove('nightText');
-        $swap.style.backgroundImage = "url('/assets/swapday.png')";
+        $swap.style.backgroundImage = "url('assets/swapday.png')";
         $historique.classList.add('dayText');
         $historique.classList.remove('nightText');
         $modificationPage.classList.add('dayText');
@@ -288,14 +288,14 @@ $colorMode.addEventListener('click', (event) => {
         $colorMode.classList.remove('day');
         $body.classList.add('night');
         $body.classList.remove('day');
-        $homeIcon.style.backgroundImage = "url('/assets/homeiconnight.png')";
+        $homeIcon.style.backgroundImage = "url('assets/homeiconnight.png')";
         $convertisseurPage.classList.add('nightText');
         $convertisseurPage.classList.remove('dayText');
         $menu.classList.add('nightText');
         $menu.classList.remove('dayText');
         $title.classList.add('nightText');
         $title.classList.remove('dayText');
-        $swap.style.backgroundImage = "url('/assets/swapnight.png')";
+        $swap.style.backgroundImage = "url('assets/swapnight.png')";
         $historique.classList.add('nightText');
         $historique.classList.remove('dayText');
         $modificationPage.classList.add('nightText');
@@ -340,8 +340,8 @@ $valeurInput_1.addEventListener("input", (event) => {
         change = true;
         if (version == "desktop") {
             $divImageResult.style.display = "flex";
-            ImageResult($valeurInput_1.value, $imageResult[0], `/assets/${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}.png`);
-            ImageResult($valeurInput_2.value, $imageResult[1], `/assets/${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}.png`);
+            ImageResult($valeurInput_1.value, $imageResult[0], `assets/${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}.png`);
+            ImageResult($valeurInput_2.value, $imageResult[1], `assets/${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}.png`);
         }
     } else {
         $result.textContent = "";
@@ -357,8 +357,8 @@ $valeurInput_2.addEventListener("input", (event) => {
         change = true;
         if (version == "desktop") {
             $divImageResult.style.display = "flex";
-            ImageResult($valeurInput_1.value, $imageResult[0], `/assets/${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}.png`);
-            ImageResult($valeurInput_2.value, $imageResult[1], `/assets/${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}.png`);
+            ImageResult($valeurInput_1.value, $imageResult[0], `assets/${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}.png`);
+            ImageResult($valeurInput_2.value, $imageResult[1], `assets/${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}.png`);
         }
     } else {
         $result.textContent = "";
@@ -374,8 +374,8 @@ $reponseSelecteur_1.addEventListener("change", (event) => {
         change = true;
         if (version == "desktop") {
             $divImageResult.style.display = "flex";
-            ImageResult($valeurInput_1.value, $imageResult[0], `/assets/${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}.png`);
-            ImageResult($valeurInput_2.value, $imageResult[1], `/assets/${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}.png`);
+            ImageResult($valeurInput_1.value, $imageResult[0], `assets/${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}.png`);
+            ImageResult($valeurInput_2.value, $imageResult[1], `assets/${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}.png`);
         }
     } else {
         $result.textContent = "";
@@ -391,8 +391,8 @@ $reponseSelecteur_2.addEventListener("change", (event) => {
         change = true;
         if (version == "desktop") {
             $divImageResult.style.display = "flex";
-            ImageResult($valeurInput_1.value, $imageResult[0], `/assets/${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}.png`);
-            ImageResult($valeurInput_2.value, $imageResult[1], `/assets/${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}.png`);
+            ImageResult($valeurInput_1.value, $imageResult[0], `assets/${$reponseSelecteur_1.options[$reponseSelecteur_1.selectedIndex].text}.png`);
+            ImageResult($valeurInput_2.value, $imageResult[1], `assets/${$reponseSelecteur_2.options[$reponseSelecteur_2.selectedIndex].text}.png`);
         }
     } else {
         $result.textContent = "";
